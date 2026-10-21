@@ -1,38 +1,45 @@
 # SMB File Sharing Configuration
 
 ## Overview
-Configured SMB file sharing on Windows Server to provide centralized file access for domain users in an Active Directory environment.
+Configured SMB file sharing on Windows Server to provide centralized access to files for domain users.
 
 ## Environment
 - Windows Server
 - Active Directory domain: Bookstore.com
-- Domain-joined Windows client
-- Server hostname: OWNER
-- SMB network shares:
-  - `\\OWNER\Shares`
-  - `\\OWNER\Accounting`
+- Windows client joined to the domain
+- SMB network shares: `\\OWNER\Shares` and `\\OWNER\Accounting`
 
 ## Configuration
-- Created shared folders on Windows Server.
-- Configured SMB share permissions and NTFS permissions.
-- Configured network access for domain users.
-- Deployed the shared drive using Group Policy Preferences.
-- Mapped `\\OWNER\Shares` as network drive `S:`.
+- Created shared folders on Windows Server
+- Configured SMB share and NTFS permissions
+- Configured network access for domain users
+- Deployed the shared S: drive using Group Policy Preferences
 
 ## Permission Levels
-- **Read:** View and open files.
-- **Modify:** Read, create, edit and delete files.
-- **Full Control:** Modify files, change NTFS permissions and take ownership.
+- **Read:** View and open files
+- **Modify:** Read, create, edit and delete files
+- **Full Control:** Modify files and manage NTFS permissions
 
-### Accounting Permissions
-- SMB Share Permissions: Everyone - Read Only
-- NTFS Permissions: Domain Users - Modify
-- Administrators and SYSTEM - Full Control
+## SMB Share Permissions
+The following screenshot shows the configured permissions for the Accounting share.
 
-**Note:** SMB share permissions and NTFS permissions work together. The most restrictive effective permission limits access. The observed file modification behavior requires further investigation because the displayed SMB share permission is Read Only.
+![SMB Share Permissions](smb-permissions.png)
 
-## Verification
-- Successfully accessed the SMB network shares from a domain-joined Windows client.
-- Verified that the mapped `S:` drive appeared in File Explorer.
-- Confirmed Group Policy application using `gpresult /r`.
-- Accessed `\\OWNER\Accounting` using the domain account `ad
+## Client-side Verification
+Successfully accessed `\\OWNER\Accounting` using the domain user `adams`.
+
+- Opened `Clients.txt`
+- Edited the file from the Windows client
+- Confirmed previously saved changes persisted after reopening
+
+![Accounting SMB Access](accounting-access.png)
+
+## Group Policy Verification
+- Confirmed GPO application using `gpresult /r`
+- Verified that Shared Drive (S:) appeared in File Explorer
+
+## Troubleshooting Note
+The Accounting share displays Everyone: Read Only at the SMB level, while file modifications were observed. Effective write permissions require further investigation.
+
+## Purpose
+Practice Windows Server administration, SMB file sharing, NTFS permissions, Group Policy and troubleshooting.
