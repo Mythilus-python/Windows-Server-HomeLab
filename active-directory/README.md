@@ -1,5 +1,3 @@
-Active Directory Documentation
- Kopírovat
 # Active Directory Configuration
 
 ## Overview
