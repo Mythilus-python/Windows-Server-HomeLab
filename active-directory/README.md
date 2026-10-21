@@ -12,4 +12,10 @@ This section documents my Active Directory home lab configuration.
 Practice centralized user and computer management in a Windows Server environment.
 
 ## Evidence
-Screenshots of the configuration will be added here.
+### Active Directory Structure
+
+![Active Directory Structure](active-directory-structure.png)
+
+Configured Active Directory in the Bookstore.com domain, including custom Organizational Units for users and the accounting department, and an accounting security group.
+
+**Purpose:** Practice centralized management of users, groups, and organizational units in a Windows Server environment.
